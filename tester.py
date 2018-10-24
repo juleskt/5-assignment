@@ -162,6 +162,15 @@ class CollisionTestCase(unittest.TestCase):
         self.assertEqual(out,correct_out)
         self.assertEqual(errs,"")
 
+    def test_really_small_time_stamps(self):
+        strin = "one 0 0 1 0"
+        correct_out = ("0.00021"
+                    "\none 0.00021 0 1 0"
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["0.00021"],strin)
+        self.assertEqual(rc,0)
+        self.assertEqual(out,correct_out)
+        self.assertEqual(errs,"")
 
     def test_single_x_velocity(self):
         strin = "one 0 0 1 0"
