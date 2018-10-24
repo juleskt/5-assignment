@@ -67,7 +67,7 @@ def is_line_correct(line, expected_line):
 
             # Otherwise, check if the absolute difference if the values is small enough
             absolute_difference = abs(float(word) - float(expected_word))
-            if absolute_difference > 0.00001:
+            if absolute_difference > 0.000001:
                 return False
 
     return True
@@ -130,7 +130,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out="10\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_velocity(self):
@@ -141,7 +141,7 @@ class CollisionTestCase(unittest.TestCase):
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
         self.assertTrue(does_output_match_expected(out, correct_out))
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_velocity_leading_zero_timestamp(self):
@@ -151,7 +151,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["0000000010"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_velocity_two_timestamps(self):
@@ -163,7 +163,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["2","4"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_velocity_three_timestamps(self):
@@ -171,7 +171,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "2\none 2 0 1 0\n4\none 4 0 1 0\n6\none 6 0 1 0\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["2","4","6"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_y_velocity(self):
@@ -179,7 +179,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "10\none 0 10 0 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_neg_velocity(self):
@@ -187,7 +187,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "10\none 0 -10 0 -1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_y_neg_velocity(self):
@@ -195,7 +195,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "10\none -10 0 -1 0\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_y_velocity(self):
@@ -203,7 +203,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "10\none 10 10 1 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_y_velocity_float_timestamp(self):
@@ -211,7 +211,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "5.7\none 5.7 5.7 1 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["5.7"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_y_velocity_float_timestamp_leading_zeros(self):
@@ -219,7 +219,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "5.7\none 5.7 5.7 1 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["00000005.7"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_y_velocity_float(self):
@@ -227,7 +227,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "10\none 1 1 0.1 0.1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_y_velocity_non_consecutive_timestamp(self):
@@ -239,7 +239,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10", "3"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_y_velocity_neg_timestamp(self):
@@ -247,7 +247,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "10\none 10 10 1 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["-2", "10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_y_velocity_neg_float_timestamp(self):
@@ -255,7 +255,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "10\none 10 10 1 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["-2", "10", "-6.7"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_y_velocity_neg_timestamps(self):
@@ -263,7 +263,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "10\none 10 10 1 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["-2", "10", "-5"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_correct_initial_conditions(self):
@@ -271,7 +271,7 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "0\none 0 0 1 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["0"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_two_correct_initial_conditions(self):
@@ -282,7 +282,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["0"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_two_no_collision(self):
@@ -296,7 +296,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["2", "200"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_two_x_plane_collision(self):
@@ -316,7 +316,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","5","6","10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_two_y_plane_collision(self):
@@ -336,7 +336,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","5","6","10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_five_newton_balls_x_plane(self):
@@ -391,13 +391,13 @@ class CollisionTestCase(unittest.TestCase):
                     "\none -70 0 0 0"
                     "\ntwo -50 0 0 0"
                     "\nthree -30 0 0 0"
-                    "\nfour -10 0 4.4408921e-16 0"
+                    "\nfour -10 0 0 0"
                     "\nfive 5 0 3 0"
                     "\n")
 
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","3","5","7","9","11","13","15"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_five_newton_balls_y_plane(self):
@@ -452,13 +452,13 @@ class CollisionTestCase(unittest.TestCase):
                     "\none 0 -70 0 0"
                     "\ntwo 0 -50 0 0"
                     "\nthree 0 -30 0 0"
-                    "\nfour 0 -10 0 4.4408921e-16"
+                    "\nfour 0 -10 0 0"
                     "\nfive 0 5 0 3"
                     "\n")
 
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","3","5","7","9","11","13","15"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
 def main():

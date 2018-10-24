@@ -18,7 +18,6 @@ import tester
 
 SUPPRESS_OUTPUT = True
 
-
 def check_all_files():
     passed, failed = [], []
 
