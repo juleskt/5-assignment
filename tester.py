@@ -138,6 +138,20 @@ class CollisionTestCase(unittest.TestCase):
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,1)
 
+    def test_non_unique_stdin_id(self):
+        strin = "one 0 0 1 0\none 20 0 0 1"
+        correct_out = ("1"
+                    "\none 1 0 1 0"
+                    "\none 20 1 0 1"
+                    "\n2"
+                    "\none 2 0 1 0"
+                    "\none 20 2 0 1" 
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","2"],strin)
+        self.assertEqual(rc,0)
+        self.assertEqual(out,correct_out)
+        self.assertEqual(errs,"")
+
     def test_single_x_velocity(self):
         strin = "one 0 0 1 0"
         correct_out = ("10"
