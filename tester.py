@@ -1,6 +1,9 @@
 """this is the main part of the assignment"""
 
 # Copyright Julian Trinh julest@bu.edu
+# Copyright Emily Stern emistern@bu.edu
+# Copyright Dennis Your dyour@bu.edu
+
 import unittest
 import subprocess
 
