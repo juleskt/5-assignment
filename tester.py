@@ -28,6 +28,57 @@ def runprogram(program, args, inputstr):
     program_errors = coll_run.stderr.decode()
     return (ret_code, program_output, program_errors)
 
+def does_output_match_expected(output, expected_output):
+    ''' Parse all lines from output and expected output to see if they match '''
+    output_lines = output.split('\n')
+    expected_lines = expected_output.split('\n')
+
+    if len(output_lines) != len(expected_lines):
+        return False
+    
+    # Extract induvidual lines into lists
+    for x in range(0, len(expected_lines)):
+        output_line = output_lines[x].split(" ")
+        expected_line = expected_lines[x].split(" ")
+
+        if len(output_line) != len(expected_line):
+            return False
+
+        if is_line_correct(output_line, expected_line) is False:
+            return False
+
+    return True
+
+def is_line_correct(line, expected_line):
+    ''' Compare lines and ensure that they syntactically similar and mathematically almost 
+        equal. Input variables are lists that represent a space-delimited line '''
+    for x in range (0, len(expected_line)):
+        word = line[x]
+        expected_word = expected_line[x]
+        # If the word strings are not equal, see if its because of float rounding
+        if word != expected_word:
+            # If the expected word is not a number, then the comparison is just wrong
+            if is_number(expected_word) is False:
+                return False
+            
+            # If the expected word is a number, but the input line is not, then its wrong
+            if is_number(word) is False:
+                return False
+
+            # Otherwise, check if the absolute difference if the values is small enough
+            absolute_difference = abs(float(word) - float(expected_word))
+            if absolute_difference > 0.00001:
+                return False
+
+    return True
+
+def is_number(num):
+    try:
+        float(num)
+        return True
+    except:
+        return False
+
 class CollisionTestCase(unittest.TestCase):
     def test_missing_initial_coordinates(self):
         strin = "one 0 0"
@@ -89,6 +140,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(out,correct_out)
         self.assertEqual(errs,"")
 
