@@ -8,7 +8,7 @@ import unittest
 import subprocess
 
 #please change this to valid author emails
-AUTHORS = ['julest@bu.edu']
+AUTHORS = ['julest@bu.edu', 'emistern@bu.edu', 'dyour@bu.edu']
 
 PROGRAM_TO_TEST = "collisionc_0"
 
