@@ -133,6 +133,11 @@ class CollisionTestCase(unittest.TestCase):
         self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
+    def test_bad_initial_pos(self):
+        strin = "one 0 one 1 0"
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
+        self.assertEqual(rc,1)
+
     def test_single_x_velocity(self):
         strin = "one 0 0 1 0"
         correct_out = ("10"
