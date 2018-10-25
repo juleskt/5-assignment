@@ -235,6 +235,14 @@ class CollisionTestCase(unittest.TestCase):
         self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
+    def test_single_x_velocity_three_timestamps(self):
+        strin = "one 0 0 1 0"
+        correct_out = "2\none 2 0 1 0\n4\none 4 0 1 0\n6\none 6 0 1 0\n"
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["2","4","6"],strin)
+        self.assertEqual(rc,0)
+        self.assertTrue(does_output_match_expected(out, correct_out))
+        self.assertEqual(errs,"")
+
     def test_single_y_velocity(self):
         strin = "one 0 0 0 1"
         correct_out = "10\none 0 10 0 1\n"
@@ -518,6 +526,36 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
 
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","3","5","7","9","11","13","15"],strin)
+        self.assertEqual(rc,0)
+        self.assertTrue(does_output_match_expected(out, correct_out))
+        self.assertEqual(errs,"")
+    def test_fastball(self):
+        strin = ("one 0 0 1000 0"
+                "\ntwo 15 0 0 0"
+                "\nthree 30 0 0 0"
+                "\nfour 45 0 0 0")
+        correct_out = ("1"
+                    "\none 5 0 0 0"
+                    "\ntwo 20 0 0 0"
+                    "\nthree 35 0 0 0"
+                    "\nfour 1030 0 1000 0"
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1"],strin)
+        self.assertEqual(rc,0)
+        self.assertTrue(does_output_match_expected(out, correct_out))
+        self.assertEqual(errs,"")
+    def test_superfastball(self):
+        strin = ("one 0 0 100000000 0"
+                "\ntwo 15 0 0 0"
+                "\nthree 30 0 0 0"
+                "\nfour 45 0 0 0")
+        correct_out = ("1"
+                    "\none 5 0 0 0"
+                    "\ntwo 20 0 0 0"
+                    "\nthree 35 0 0 0"
+                    "\nfour 100000030 0 100000000 0"
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1"],strin)
         self.assertEqual(rc,0)
         self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
