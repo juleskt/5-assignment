@@ -205,6 +205,33 @@ class CollisionTestCase(unittest.TestCase):
         self.assertEqual(out,correct_out)
         self.assertEqual(errs,"")
 
+    def test_positive_symbol(self):
+        strin="one 0 0 1 0"
+        correct_out = ("1"
+                    "\none 1 0 1 0"
+                    "\n2"
+                    "\none 2 0 1 0"
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","+2"],strin)
+
+    def test_negative_symbol(self):
+        strin="one 0 0 1 0"
+        correct_out = ("1"
+                    "\none 1 0 1 0"
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","-2"],strin)
+
+    def test_int_float_timestamps(self):
+        strin="one 0 0 1 0"
+        correct_out = ("1"
+                    "\none 1 0 1 0"
+                    "\n1.5"
+                    "\none 1.5 0 1 0"
+                    "\n2"
+                    "\none 2 0 1 0"
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","1.5", "2"],strin)
+
     def test_number_id_name(self):
         strin = "1 0 0 1 0"
         correct_out = ("1"
