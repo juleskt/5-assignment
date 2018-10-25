@@ -150,7 +150,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","2"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_really_large_time_stamps(self):
@@ -160,7 +160,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10000"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_really_small_time_stamps(self):
@@ -170,7 +170,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["0.00021"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_same_time_stamps(self):
@@ -182,7 +182,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","1"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_scientific_notation_large_timestamp(self):
@@ -192,7 +192,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["2.1e+21"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_scientific_notation_small_timestamp(self):
@@ -202,7 +202,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["2.1e-21"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_positive_symbol(self):
@@ -239,7 +239,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_single_x_velocity(self):
@@ -249,7 +249,6 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
