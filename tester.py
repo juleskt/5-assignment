@@ -133,6 +133,67 @@ class CollisionTestCase(unittest.TestCase):
         self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
+    def test_bad_initial_pos(self):
+        strin = "one 0 one 1 0"
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
+        self.assertEqual(rc,1)
+
+    def test_non_unique_stdin_id(self):
+        strin = "one 0 0 1 0\none 20 0 0 1"
+        correct_out = ("1"
+                    "\none 1 0 1 0"
+                    "\none 20 1 0 1"
+                    "\n2"
+                    "\none 2 0 1 0"
+                    "\none 20 2 0 1" 
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","2"],strin)
+        self.assertEqual(rc,0)
+        self.assertEqual(out,correct_out)
+        self.assertEqual(errs,"")
+
+    def test_really_large_time_stamps(self):
+        strin = "one 0 0 1 0"
+        correct_out = ("10000"
+                    "\none 10000 0 1 0"
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10000"],strin)
+        self.assertEqual(rc,0)
+        self.assertEqual(out,correct_out)
+        self.assertEqual(errs,"")
+
+    def test_really_small_time_stamps(self):
+        strin = "one 0 0 1 0"
+        correct_out = ("0.00021"
+                    "\none 0.00021 0 1 0"
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["0.00021"],strin)
+        self.assertEqual(rc,0)
+        self.assertEqual(out,correct_out)
+        self.assertEqual(errs,"")
+
+    def test_same_time_stamps(self):
+        strin = "one 0 0 1 0"
+        correct_out = ("1"
+                    "\none 1 0 1 0"
+                    "\n1"
+                    "\none 1 0 1 0"
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","1"],strin)
+        self.assertEqual(rc,0)
+        self.assertEqual(out,correct_out)
+        self.assertEqual(errs,"")
+
+    def test_number_id_name(self):
+        strin = "1 0 0 1 0"
+        correct_out = ("1"
+                    "\n1 1 0 1 0"
+                    "\n")
+        (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1"],strin)
+        self.assertEqual(rc,0)
+        self.assertEqual(out,correct_out)
+        self.assertEqual(errs,"")
+
     def test_single_x_velocity(self):
         strin = "one 0 0 1 0"
         correct_out = ("10"
