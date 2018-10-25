@@ -4,7 +4,6 @@
 # Copyright Emily Stern emistern@bu.edu
 # Copyright Dennis Your dyour@bu.edu
 
-#my comment
 
 import unittest
 import subprocess
@@ -206,6 +205,12 @@ class CollisionTestCase(unittest.TestCase):
         self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
+
+    # We need to implement this test with the new executable files
+    # def test_invalid_timestamp_with_char(self):
+    #     strin = "one 0 0 1 0"
+    #     (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1s"],strin)
+    #     self.assertEqual(rc,2)
 
     def test_single_x_velocity_leading_zero_timestamp(self):
         strin = "one 0 0 1 0"
