@@ -66,8 +66,7 @@ def is_line_correct(line, expected_line):
                 return False
 
             # Otherwise, check if the absolute difference if the values is small enough
-            absolute_difference = abs(float(word) - float(expected_word))
-            if absolute_difference > 0.000001:
+            if abs(float(word) - float(expected_word)) > 0.000001:
                 return False
 
     return True
@@ -238,7 +237,7 @@ class CollisionTestCase(unittest.TestCase):
                     "\n")
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["1","1"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
     def test_number_id_name(self):
@@ -621,84 +620,84 @@ class CollisionTestCase(unittest.TestCase):
         correct_out = "3\none 14 13 -2 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["3"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_null_input(self):
         strin = ""
         correct_out = ""
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,[""],strin)
         self.assertEqual(rc,2)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_bad_times(self):
         strin = "one 20 10 -2 1"
         correct_out = ""
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["cheese"],strin)
         self.assertEqual(rc,2)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_bad_coords(self):
         strin = "one 20 10 -2 1 1 1 1 cat"
         correct_out = ""
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["3"],strin)
         self.assertEqual(rc,1)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_mass_input(self):
         strin = "one 0 0 0 0\ntwo 10 0 0 0\nthree 20 0 0 0\nfour 30 0 0 0\nfive 40 0 0 0\nsix 50 0 0 0\nseven 60 0 0 0\neight 70 0 0 0\nnine 80 0 0 0\nten 90 0 0 0\neleven 100 0 0 0"
         correct_out = "10\none 0 0 0 0\ntwo 10 0 0 0\nthree 20 0 0 0\nfour 30 0 0 0\nfive 40 0 0 0\nsix 50 0 0 0\nseven 60 0 0 0\neight 70 0 0 0\nnine 80 0 0 0\nten 90 0 0 0\neleven 100 0 0 0\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_position_max(self):
         strin = "Q1 100000 100000 1 1\nQ2 -100000 100000 1 1\nQ3 -100000 -100000 1 1\nQ4 100000 -100000 1 1"
         correct_out = "3\nQ1 100003 100003 1 1\nQ2 -99997 100003 1 1\nQ3 -99997 -99997 1 1\nQ4 100003 -99997 1 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["3"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_neg_horizontal(self):
         strin = "one 0 0 -1 0\ntwo -15 0 0 0"
         correct_out = "10\none -5 0 0 0\ntwo -20 0 -1 0\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_horizontal(self):
         strin = "one 0 0 1 0\ntwo 15 0 0 0"
         correct_out = "10\none 5 0 0 0\ntwo 20 0 1 0\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_no_movement(self):
         strin = "one 10 0 0 0\ntwo 20 0 0 0"
         correct_out = "3\none 10 0 0 0\ntwo 20 0 0 0\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["3"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_neg_vertical(self):
         strin = "one 0 0 0 -1\ntwo 0 -15 0 0"
         correct_out = "10\none 0 -5 0 0\ntwo 0 -20 0 -1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_vertical(self):
         strin = "one 0 0 0 1\ntwo 0 15 0 0"
         correct_out = "10\none 0 5 0 0\ntwo 0 20 0 1\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
     def test_head_on(self):
         strin = "one 0 -10 0 5\ntwo 0 10 0 -5"
         correct_out = "2\none 0 -10 0 -5\ntwo 0 10 0 5\n"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["2"],strin)
         self.assertEqual(rc,0)
-        self.assertEqual(out,correct_out)
+        self.assertTrue(does_output_match_expected(out, correct_out))
         self.assertEqual(errs,"")
 
 
