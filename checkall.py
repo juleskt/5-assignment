@@ -1,6 +1,6 @@
 """ Check all collision programs, record pass/fail
 
-Using the collisiontester (YOU must finish collisiontester), check
+Using the tester (YOU must finish tester), check
 all executable collision programs for correctness.
 
 This program is provided to you 
@@ -18,13 +18,13 @@ import tester
 
 SUPPRESS_OUTPUT = True
 
+
 def check_all_files():
-    passed, failed = [], []
+    overall_results={}
 
-    Programs = glob.glob('collisionc*')
+    Programs = glob.glob('collision__*')
+    print(len(Programs),'programs to be tested.')
     for file_name in Programs:
-        #if "hard" in file_name: continue
-
         loader = unittest.loader.TestLoader()
         results = unittest.result.TestResult()
 
@@ -41,13 +41,9 @@ def check_all_files():
 
             tests.run(results)
 
-            tests_passed = results.testsRun - len(results.failures) - len(
-                results.errors)
 
-            if results.wasSuccessful():
-                passed.append(file_name)
-            else:
-                failed.append(file_name)
+            overall_results[file_name]={'run':results.testsRun,'failures':len(results.failures),'errors':len(results.errors)}
+            
             if SUPPRESS_OUTPUT:
                 sys.stdout = sys.__stdout__
 
@@ -56,17 +52,18 @@ def check_all_files():
                 sys.stdout = sys.__stdout__
 
             print('exception', file_name, e)
-            failed.append(file_name)
+            overall_results[file_name]={'exception':str(e)}
+ 
 
-    return passed, failed
+    return overall_results
 
 
 if __name__ == "__main__":
-    passed, failed = check_all_files()
-    Results = {
-        'failed': failed,
-        'passed': passed,
-        'authors': tester.AUTHORS
-    }
-    with open('collisiontest_results.json', 'w') as f:
-        json.dump(Results, f, indent=4)
+    results =  check_all_files()
+    passed = {x:results[x] for x in results if not results[x]['failures'] and not results[x]['errors']}
+    failed = {x:results[x] for x in results if results[x]['failures'] or results[x]['errors']}
+    print(len(passed),'passed')
+    print(len(failed),'failed')
+    with open('tester_results.json', 'w') as f:
+        output_obj = {'failed':failed,'passed':passed,'authors':tester.AUTHORS}
+        json.dump(output_obj, f, indent=4)
