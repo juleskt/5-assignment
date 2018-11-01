@@ -83,46 +83,55 @@ class CollisionTestCase(unittest.TestCase):
         strin = "one 0 0"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,1)
+        self.assertEqual(out,"")
 
     def test_missing_second_initial_coordinates(self):
         strin = "one 0 0 0 1\ntwo 5 5"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,1)
+        self.assertEqual(out,"")
 
     def test_only_id_for_stdin(self):
         strin = "one"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,1)
+        self.assertEqual(out,"")
 
     def test_two_missing_initial_coordinates(self):
         strin = "one 0 0\ntwo 0 0"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,1)
+        self.assertEqual(out,"")
 
     def test_too_many_stdin_inputs(self):
         strin = "one 0 0 10 10 10 10 10 10 10"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,1)
+        self.assertEqual(out,"")
 
     def test_two_too_many_stdin_inputs(self):
         strin = "one 0 0 10 10 10 10 10 10 10\ntwo 10 10 10 10 10 10 10 10 10"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,1)
+        self.assertEqual(out,"")
 
     def test_non_numeric_cmd(self):
         strin = "one 0 0 1 0"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["x"],strin)
         self.assertEqual(rc,2)
+        self.assertEqual(out,"")
 
     def test_two_non_numeric_cmd(self):
         strin = "one 0 0 1 0"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["x", "y", "z"],strin)
         self.assertEqual(rc,2)
+        self.assertEqual(out,"")
 
     def test_no_cmd(self):
         strin = "one 0 0 1 0"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,[""],strin)
         self.assertEqual(rc,2)
+        self.assertEqual(out,"")
 
     def test_no_stdin(self):
         strin = ""
@@ -136,6 +145,7 @@ class CollisionTestCase(unittest.TestCase):
         strin = "one 0 one 1 0"
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,["10"],strin)
         self.assertEqual(rc,1)
+        self.assertEqual(out,"")
 
     def test_non_unique_stdin_id(self):
         strin = "one 0 0 1 0\none 20 0 0 1"
@@ -633,7 +643,7 @@ class CollisionTestCase(unittest.TestCase):
         (rc,out,errs) = runprogram(PROGRAM_TO_TEST,[""],strin)
         self.assertEqual(rc,2)
         #self.assertTrue(does_output_match_expected(out, correct_out))
-        self.assertEqual(errs,"")
+        self.assertEqual(out,"")
 
     def test_bad_times(self):
         strin = "one 20 10 -2 1"
